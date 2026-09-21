@@ -9,7 +9,7 @@ Hard Constraints:
 - Around one week to a working page
 - Must run as a static client-side page
 
-Feature under the gate: F-01, the opt-in directory. Employees opt themselves in with a name, team, and a short note. Interns can browse the list to find someone to ask for an informal conversation. This is the Must-be feature in the Kano table, with the strongest evidence out of the six.
+Feature under the gate: F-01, the opt-in directory. Employees opt themselves in with a name, team, and a short note. Interns can browse the list to find someone to ask for an informal conversation.
 
 1/3/5 anchors:
 - Cost to start - 5: free and usable today. 3: some setup time or a small one-time cost. 1: requires payment or a lengthy setup before anything works
@@ -24,26 +24,26 @@ Feature under the gate: F-01, the opt-in directory. Employees opt themselves in 
 |---|---:|---:|---:|---:|
 | Cost to start | 4|3- 12|1- 4|5- 20 |
 | Cost to maintain |3| 5 - 15|1 - 3|5- 15 |
-| Time to working | 5|3 - 15|4 - 20|5- 25 |
+| Time to working | 5|3 - 15|4 - 20|5 - 25 |
 | Inspectability | 5|5 - 25|1 - 5|2 - 10|
 | Switching cost | 2|5 - 10|2 - 4|3 - 6|
 | Fit to spec | 4|5 - 20|2 - 8|4 - 16|
 | Total | |97|44|92|
 
-Weight Rationale: Inspectability and time-to-working are tied for the top weight (5) because the deadline is real and the course specifically grades whether I can explain what I built. Cost to start and fit to spec are next (4) because the budget is zero and F-01's acceptance criteria are already written and specific. Switching cost is weighted lowest (2) because a system like this does not exist already at the company and being locked in later matters far less than it would for a production system. 
+Weight Rationale: Inspectability and time-to-working are tied for the top weight (5) because the deadline is real and the course specifically grades whether I can explain what I built. Cost to start has weight 4 because the project has a zero budget. Fit to spec has weight 4 because the feature must match the acceptance criteria. Cost to maintain has weight 3 because this is a small class prototype. Switching cost has weight 2 because it matters, but the prototype is intentionally small.
 
-Buy fit note: F-01 is a directory with opt-in/opt-out, which off-the-shelf tools could technically approximate, but none would natively enforce "removed from intern-visible results within 1 minute of opting out" or enforcing the informal-conversation only framing baked into the spec, hece the low fit-to-spec score.
+Buy fit note: F-01 is a directory with opt-in/opt-out, which off-the-shelf tools could technically approximate, but none would natively enforce "removed from intern-visible results within 1 minute" without configuration and vendor-specific behavior.
 
-Sensitivity check: If inspectability's weight drops from 5 to 2 (if I assume I become confident auditing AI-generated code), the totals become Build 82, Buy 41, Delegate 86. Build still is the biggest, but only barely, which shows the decision is fairly robust but hinges specifically on how much inspectability is weighted, not on any other criterion being lopsided. 
+Sensitivity check: If inspectability's weight drops from 5 to 2 (if I assume I become confident auditing AI-generated code), the totals become Build 82, Buy 41, Delegate 86. Build still is the big[...]
 
 ## ADR-001
 
 Title and date: ADR-001: Build the opt-in directory (F-01) by hand - September 12, 2026
 Status: Accepted
-Door / concrete acquisition and execution choice: Build. HW3 supplies a working template app. I adapted its existing behavior by rebranding it as the opt-in directory and adding a matching error message, instead of replacing it with a build from scratch or paying for/delegating an entriely new implementation.
-Context: F-01 specifies an opt-in directory: employees list themselves as available for a short informal conversation, and interns browse the list. The supplied template already implements the exact load/save/render/opt-out shape F-01 needs. It provides a form that saves an entry and a list that renders it, with delete already behaving like an immediate opt-out. The budget is zero, the deadline is about a week, and the course requires I be able to inspect and explain every line, including the parts I did not originally write. Paying for an existing directory service would cost moeny I do not have and would not natively enforce my specific removal time rule. Fully delegating a rebuild would be faster than adapting the template myself, but my own instectability score for a wholesale agent rewrite is low. I can read and modify the supplied plain JavaScript, but I am not yet confident auditing an entirely new implementation for subtle bugs on my own. 
-Decision: Adapt the supplied template in place. Rebrand its text to describe an opt-in directory and add an error message, keeping its existing load/save/render patter, accessibility attributes, and the simulateFailedSave test harness untouched. 
-Consequences and revisit trigger: This makes the feature fully inspectable by me and lets me match F-01's acceptance criteria directly, at the cost of taking longer to build than an existing tool would and producing a visible simpler interface. The interaction is one-directional by design. However, this prototype does not provide production authentication, multi-user synchronization, manager notifications, scheduling automation, or internship-end enforcement. There is no login yet, anyone using the page can currently do both the "opt in" and "browse" actions, with nothing enforcing that separation. Additionally, there is no system in place to remove intern access once their internship ends. I will need to revisit these to make sure that real accounts enforce who can opt in versus who can only browse and when intern access needs to be revoked. At that point, I will write ADR-002 and mark this ADR as Superseded, not deleted. 
+Door / concrete acquisition and execution choice: Build. HW3 supplies a working template app. I adapted its existing behavior by rebranding it as the opt-in directory and adding a matching error message, keeping the supplied structure.
+Context: F-01 specifies an opt-in directory: employees list themselves as available for a short informal conversation, and interns browse the list. The supplied template already implements the expected load/save/render pattern.
+Decision: Adapt the supplied template in place. Rebrand its text to describe an opt-in directory and add an error message, keeping its existing load/save/render pattern, accessibility attributes, and client-side storage.
+Consequences and revisit trigger: This makes the feature fully inspectable by me and lets me match F-01's acceptance criteria directly, at the cost of taking longer to build than an existing tool and limiting persistence to one browser. Revisit when entries must survive a cleared cache or be shared between clients.
 
 Keep superseded ADRs. The pedagogical browser build can coexist with a different architecture recommendation; explain the distinction.
 
@@ -52,41 +52,45 @@ Keep superseded ADRs. The pedagogical browser build can coexist with a different
 Where should entries live now that they must survive a cleared cache?
 
 | Criterion | Weight | Build (Worker + D1) | Buy (hosted BaaS) | Delegate (AI builder hosts it) |
-|---|---|---|---|---|
-| Cost to start | *?* | | | |
-| Cost to maintain | *?* | | | |
-| Time to working | *?* | | | |
-| Inspectability | *?* | | | |
-| Switching cost | *?* | *scored from Session B experience* | | |
-| Fit to spec | *?* | | | |
-| **Weighted total** | | | | |
+|---|---:|---:|---:|---:|
+| Cost to start | 4 | 3 - 12 | 4 - 16 | 5 - 20 |
+| Cost to maintain | 3 | 4 - 12 | 3 - 9 | 3 - 9 |
+| Time to working | 5 | 3 - 15 | 4 - 20 | 5 - 25 |
+| Inspectability | 5 | 5 - 25 | 2 - 10 | 1 - 5 |
+| Switching cost | 2 | 4 - 8 | 2 - 4 | 2 - 4 |
+| Fit to spec | 4 | 5 - 20 | 3 - 12 | 3 - 12 |
+| **Weighted total** | | **92** | **71** | **75** |
 
-*Keep your HW3 weights unless you can say in one sentence why one changed.*
+The HW3 weights are unchanged. Inspectability and time-to-working remain the highest priorities because the assignment requires me to understand and verify the Worker, while the zero-budget constraint still makes cost important. For switching cost, I scored Build 4 because Session B required learning deployment and wiring the API, but the data remains portable SQL and the frontend has a small fetch boundary. I scored Buy and Delegate 2 because leaving would require replacing vendor-specific storage/authuration and API behavior.
+
+Build wins because it keeps the Worker, SQL schema, validation, and data flow inspectable while meeting the cleared-cache requirement without changing the application's core feature. The totals are a decision aid, not a claim that the other options are impossible.
 
 ## ADR-002: Entries move from localStorage to Cloudflare D1
 
-**Status:** *Proposed / Accepted*
+**Status:** Accepted
 **Supersedes:** ADR-001
 
 ### Context
 
-*What data leaves the browser, to which vendor, under what terms, and who is accountable. All four, or the decision is not recorded.*
+The browser previously held the entry text in localStorage, so clearing site data or using another browser made the entries disappear. Under this decision, the entry text and the server-created timestamp leave the browser in JSON requests and responses. The requests go to my Cloudflare Worker, and the entry values are stored in Cloudflare D1. Cloudflare may also receive request metadata such as the request time and IP address through its normal infrastructure logs, even though the application does not intentionally store that metadata in the entries table. The crossing is governed by the Cloudflare service terms and account settings. I am accountable for the data the page sends, the Worker code, the database schema, and access configuration; Cloudflare is accountable for operating the Worker and D1 infrastructure under its service terms.
 
 ### Decision
 
-*...*
+Use the supplied Cloudflare Worker as a small API with `GET /entries` and `POST /entries`, and use the attached D1 database as the source of truth. The Worker uses parameter binding for user values, validates POST requests, returns status codes for success and failure, and sends CORS headers so the static page can call it. The page keeps rendering user values with `textContent`, but replaces localStorage reads and writes with fetch requests.
 
 ### Alternatives considered
 
-*Buy and Delegate from the Gate above, with the score and one sentence each.*
+- **Buy:** A hosted backend-as-a-service would reduce deployment code, but it would add vendor-specific configuration and make the trust boundary and implementation less inspectable. Its Gate score was 71.
+- **Delegate:** An AI builder could generate and host the backend quickly, but I would have less confidence inspecting its storage, security, and failure behavior, and leaving would still require replacing hosted APIs. Its Gate score was 75.
+- **Build:** The Worker + D1 option scored 92 and is the selected choice because it provides durable storage while keeping the crossing and server code small enough to inspect.
 
 ### Consequences
 
-*At least one thing that got harder: offline use, testing, cost ceiling, a stranger's data in your table.*
+Entries now survive a cleared browser cache and can be read by another browser that uses the same deployed Worker. The negative consequences are that offline use is harder, a deployment and database must be maintained, network and CORS failures must be handled, Cloudflare receives the entry data and request metadata, and testing now depends on a remote service rather than only on browser storage. A later multi-user design may also require identity and authorization that this prototype does not provide.
 
 ### Revisit trigger
 
-*When would this decision be wrong? "When a second user needs their own entries" is ADR-003 waiting to happen.*
+Revisit this decision if the project needs separate entries or permissions for multiple users, private or sensitive data, offline-first behavior, a different data region or retention policy, or costs and Cloudflare terms no longer fit the project. A second user needing their own entries is ADR-003 territory.
 
 ---
 
