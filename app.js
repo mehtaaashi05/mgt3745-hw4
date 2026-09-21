@@ -2,7 +2,7 @@
 // The page talks to the Worker instead of keeping entries in localStorage.
 
 // Replace this with the deployed Worker URL before testing the hosted page.
-const API = "https://mgt3745-hw4.YOUR-SUBDOMAIN.workers.dev";
+const API = "https://mgt3745-hw4.workers.dev";
 
 const form = document.getElementById("note-form");
 const input = document.getElementById("note-input");
