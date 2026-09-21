@@ -36,17 +36,6 @@ Buy fit note: F-01 is a directory with opt-in/opt-out, which off-the-shelf tools
 
 Sensitivity check: If inspectability's weight drops from 5 to 2 (if I assume I become confident auditing AI-generated code), the totals become Build 82, Buy 41, Delegate 86. Build still is the big[...]
 
-## ADR-001
-
-Title and date: ADR-001: Build the opt-in directory (F-01) by hand - September 12, 2026
-Status: Accepted
-Door / concrete acquisition and execution choice: Build. HW3 supplies a working template app. I adapted its existing behavior by rebranding it as the opt-in directory and adding a matching error message, keeping the supplied structure.
-Context: F-01 specifies an opt-in directory: employees list themselves as available for a short informal conversation, and interns browse the list. The supplied template already implements the expected load/save/render pattern.
-Decision: Adapt the supplied template in place. Rebrand its text to describe an opt-in directory and add an error message, keeping its existing load/save/render pattern, accessibility attributes, and client-side storage.
-Consequences and revisit trigger: This makes the feature fully inspectable by me and lets me match F-01's acceptance criteria directly, at the cost of taking longer to build than an existing tool and limiting persistence to one browser. Revisit when entries must survive a cleared cache or be shared between clients.
-
-Keep superseded ADRs. The pedagogical browser build can coexist with a different architecture recommendation; explain the distinction.
-
 ## The Gate: HW4 rerun
 
 Where should entries live now that they must survive a cleared cache?
@@ -98,4 +87,9 @@ Revisit this decision if the project needs separate entries or permissions for m
 
 **Status:** Superseded by ADR-002
 
-*Paste your HW3 ADR-001 here, unedited. The reasoning was true on September 10; the record should show that it was.*
+Title and date: ADR-001: Build the opt-in directory (F-01) by hand - September 12, 2026
+Status: Accepted
+Door / concrete acquisition and execution choice: Build. HW3 supplies a working template app. I adapted its existing behavior by rebranding it as the opt-in directory and adding a matching error message, keeping the supplied structure.
+Context: F-01 specifies an opt-in directory: employees list themselves as available for a short informal conversation, and interns browse the list. The supplied template already implements the expected load/save/render pattern.
+Decision: Adapt the supplied template in place. Rebrand its text to describe an opt-in directory and add an error message, keeping its existing load/save/render pattern, accessibility attributes, and client-side storage.
+Consequences and revisit trigger: This makes the feature fully inspectable by me and lets me match F-01's acceptance criteria directly, at the cost of taking longer to build than an existing tool and limiting persistence to one browser. Revisit when entries must survive a cleared cache or be shared between clients.
