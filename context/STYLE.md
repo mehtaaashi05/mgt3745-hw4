@@ -1,6 +1,5 @@
 ---
-# Tokens: what a machine reads. Replace every value with one pulled from the
-# interface you admire. Guess the hex; precision is HW5's problem.
+# Tokens: what a machine reads.
 color-primary: "#051E39"
 color-accent: "#B39051"
 color-background: "#FFFFFF"
@@ -20,21 +19,21 @@ body is what a human reads. One sentence per token. "Looks clean" is fog;
 
 ## Rationale
 
-- **color-primary**: *why this color, for this audience*
-- **color-accent**: *where it is allowed and where it is not*
-- **font-body / font-heading**: *one family per role, because two is a decision and three is a mess*
-- **space-unit**: *so nothing is eyeballed*
-- **font-size-min**: *who cannot read anything smaller*
+- **color-primary**: Deep blue gives the directory a calm, work-focused tone and maintains contrast on white.
+- **color-accent**: Gold is reserved for focus outlines and calls to action so it signals interaction without taking over the page.
+- **font-body / font-heading**: Roboto keeps short directory entries familiar and readable while Roboto Slab gives the heading a modest editorial distinction.
+- **space-unit**: An 8px rhythm keeps the form and list aligned without making a small tool feel crowded.
+- **font-size-min**: 14px is the smallest text so supporting instructions remain readable for users scanning quickly.
 
 ## Refusals
 
 Things this interface will never do, and why. Taken from the interface you
 resent. Name the Law of UX it breaks (lawsofux.com).
 
-1. *No modals for anything the user did not ask for. Breaks: ...*
-2. *...*
+1. No modal interrupts an entry submission. It breaks user control by adding a decision the user did not request.
+2. No decorative animation delays the directory list. It breaks the Doherty Threshold by making a simple result feel slower.
 
 ## Sources
 
-- Admired: *name, screenshot in /docs*
-- Resented: *name, screenshot in /docs*
+- Admired: GOV.UK forms, for direct labels and restrained spacing.
+- Resented: notification-heavy social feeds, for interrupting a focused task with competing prompts.

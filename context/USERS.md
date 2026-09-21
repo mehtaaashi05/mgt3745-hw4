@@ -40,11 +40,16 @@ Two exploratory interviews do not establish population prevalence; broader claim
 
 ## Primary user
 
-*Name, role, goal, friction. Where they are when they use this.*
+The primary user is the Hesitant Explorer: an intern browsing from a laptop
+who wants firsthand information about another team without signaling a desire
+to leave. Their friction is not knowing whom to approach and fearing that a
+direct request will be misread.
 
 ## Secondary user
 
-*...*
+The secondary user is the Proactive Outreacher: an employee who has opted in
+and adds a short fictional description of what they can discuss. They want
+interested interns to find them without managing individual introductions.
 
 ## Journey
 
@@ -52,9 +57,9 @@ Two exploratory interviews do not establish population prevalence; broader claim
 journey
   title One session
   section Arrive
-    Opens the page: 4: User
+    Opens the page: 4: Intern
   section Act
-    Adds an entry: 5: User
+    Adds an entry: 5: Employee
   section Return
-    Comes back on another device: 3: User
+    Comes back on another device: 3: Intern
 ```

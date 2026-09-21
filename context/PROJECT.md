@@ -6,16 +6,27 @@ An intern on one team becomes curious about another and wants firsthand informat
 
 ## Problem statement
 
-*The wicked problem, in a paragraph a stranger could repeat back.*
+Interns often want firsthand information about another team but hesitate to ask
+because curiosity can look like dissatisfaction or a transfer request. This
+directory gives them a low-commitment way to find an employee who has opted in
+to a short conversation, while keeping the example data fictional and
+non-sensitive.
 
 ## Who it is for
 
-*Primary and secondary users. Details in USERS.md.*
+Primary users are hesitant interns exploring another team's work. Secondary
+users are employees willing to describe their work and managers who need the
+activity framed as ordinary development rather than a transfer signal.
 
 ## Scope
 
-*In: ... Out: ... Deferred: ...*
+In: adding and listing a short opt-in directory entry. Out: messaging,
+identity verification, transfer requests, and manager approvals. Deferred:
+per-user accounts, private entries, and removal workflows.
 
 ## Constraints
 
-*Time, platform, data, policy. The Trust Boundary crossings now recorded in TOOLS.md.*
+The project is a one-week static page plus a small Cloudflare Worker and D1
+database, with a zero budget. It stores only fictional, non-sensitive entry
+text and server timestamps. The browser-to-Cloudflare crossing is recorded in
+[TOOLS.md](TOOLS.md) and ADR-002.

@@ -12,10 +12,10 @@ what crosses, to whom, and who is accountable.
 
 | Service | Trusted with | Credentials live | Crossing statement | Switching cost |
 |---|---|---|---|---|
-| Cloudflare Workers + D1 | Every entry a user types; request metadata (IP, timestamp) that Cloudflare logs by default | Cloudflare dashboard login; wrangler token inside the Codespace | "User entries leave the browser and are stored on D1 under Cloudflare's free-tier terms, in a region I did not choose. I am accountable." | Medium: `wrangler d1 export`, rewrite one Worker for another host |
-| GitHub + Codespaces | Source, commit history, devcontainer | GitHub account (SSO) | *write yours* | *Low / Medium / High, plus the one action required to leave* |
-| GitHub Copilot | Everything in the repository, as context for suggestions | GitHub account | *write yours* | |
-| wrangler (npm) | *what does an npm package receive?* | *none, but it holds the login token above* | *write yours; the event-stream debate applies here* | |
+| Cloudflare Workers + D1 | Every entry a user types; request metadata such as IP and timestamp that Cloudflare may log | Cloudflare account and local wrangler authentication | I send entry text and request data to Cloudflare, and I am accountable for what my Worker stores while Cloudflare operates the infrastructure under its service terms. | Medium: export D1, then rewrite and deploy the API elsewhere |
+| GitHub + Codespaces | Source, commit history, and the devcontainer while I develop | GitHub account authentication | I send this repository and development activity to GitHub, and I am accountable for the code and data I commit there. | Medium: clone the repository and move development to another host |
+| GitHub Copilot | Repository files and prompts used to generate suggestions | GitHub account authentication | I send relevant repository context to GitHub Copilot for suggestions, and I am accountable for reviewing what I accept. | Low: stop using Copilot and continue with the repository locally |
+| wrangler (npm) | Project configuration, deployment commands, and Cloudflare API requests when I run it | Local wrangler authentication managed by Cloudflare tooling | I send deployment configuration through wrangler to Cloudflare, and I am accountable for the commands and configuration I run. | Low: replace the CLI workflow with another deployment client |
 
 ## Revisit triggers
 

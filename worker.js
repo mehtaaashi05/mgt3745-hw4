@@ -5,7 +5,7 @@
 // development, so the API explicitly permits the browser requests it needs.
 const CORS = {
   "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, OPTIONS",
+  "access-control-allow-methods": "GET, POST, DELETE, OPTIONS",
   "access-control-allow-headers": "content-type",
 };
 
@@ -25,6 +25,10 @@ async function handle(request, env) {
 
   if (request.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: CORS });
+  }
+
+  if (request.method === "GET" && url.pathname === "/") {
+    return Response.json({ service: "mgt3745-hw4", status: "ok" }, { headers: CORS });
   }
 
   if (!env.DB) {
@@ -66,6 +70,24 @@ async function handle(request, env) {
       .bind(text)
       .run();
     return new Response(null, { status: 201, headers: CORS });
+  }
+
+  if (request.method === "DELETE" && url.pathname.startsWith("/entries/")) {
+    const id = Number(url.pathname.slice("/entries/".length));
+    if (!Number.isInteger(id) || id < 1) {
+      return new Response("entry id must be a positive integer", {
+        status: 400,
+        headers: CORS,
+      });
+    }
+
+    const result = await env.DB.prepare("DELETE FROM entries WHERE id = ?")
+      .bind(id)
+      .run();
+    if (!result.meta.changes) {
+      return new Response("entry not found", { status: 404, headers: CORS });
+    }
+    return new Response(null, { status: 204, headers: CORS });
   }
 
   return new Response("not found", { status: 404, headers: CORS });

@@ -34,7 +34,7 @@ Weight Rationale: Inspectability and time-to-working are tied for the top weight
 
 Buy fit note: F-01 is a directory with opt-in/opt-out, which off-the-shelf tools could technically approximate, but none would natively enforce "removed from intern-visible results within 1 minute" without configuration and vendor-specific behavior.
 
-Sensitivity check: If inspectability's weight drops from 5 to 2 (if I assume I become confident auditing AI-generated code), the totals become Build 82, Buy 41, Delegate 86. Build still is the big[...]
+Sensitivity check: If inspectability's weight drops from 5 to 2 because I become more confident auditing AI-generated code, the totals become Build 82, Buy 41, and Delegate 86. Build still wins on fit and control, but Delegate becomes competitive on speed.
 
 ## The Gate: HW4 rerun
 

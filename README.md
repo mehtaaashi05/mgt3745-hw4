@@ -1,21 +1,24 @@
 # Entries: Data Leaves the Browser
 
-> Replace this title and every *italic prompt* with your own words. Six
-> sections, in this order: What, See It Work, How to Run, Status, Links,
-> AI Use. GitHub renders this page; it can show, not only tell.
+This HW4 version moves the opt-in directory from browser-only storage to a
+deployed Cloudflare Worker backed by D1.
 
 ## What
 
-*HW3 repository: [link it here](https://github.com/YOUR-USER/mgt3745-hw3)*
+HW3 repository: [mgt3745-hw3](https://github.com/mehtaaashi05/mgt3745-hw3)
 
-*One paragraph naming the problem, the user, and the feature, with links to
-[PROJECT.md](context/PROJECT.md) and [FEATURES.md](context/FEATURES.md).
-One sentence on where data now lives and why (ADR-002).*
+The opt-in directory helps interns find employees willing to have a short,
+informal conversation about another team, without turning curiosity into a
+formal transfer request. It serves hesitant explorers and proactive
+outreachers described in [PROJECT.md](context/PROJECT.md) and
+[FEATURES.md](context/FEATURES.md). Entries now live in Cloudflare D1 behind
+the deployed Worker so they survive cleared browser data and are available to
+another client, as recorded in ADR-002.
 
 ## See It Work
 
-*A GIF or screenshot in `/docs` showing an entry surviving a cleared cache
-or appearing in a second browser. Evidence and storefront at once.*
+The deployed endpoint returned the same entry after the browser's site data
+was cleared and the page was loaded again.
 
 ![See it work](docs/see-it-work.gif)
 
@@ -31,7 +34,8 @@ flowchart LR
 
 ## How to Run
 
-Deployed: *`https://mgt3745-hw4.YOUR-SUBDOMAIN.workers.dev/entries`*
+Deployed Worker: `https://mgt3745-hw4.mgt3745-hw4.workers.dev/`
+API: `https://mgt3745-hw4.mgt3745-hw4.workers.dev/entries`
 
 From a fresh Codespace:
 
@@ -47,13 +51,13 @@ To run the Worker locally instead: `npm run dev` (port 8787, local D1 emulator).
 
 | Feature | EARS statement | Verdict |
 |---|---|---|
-| *Save an entry* | *WHEN a valid entry is submitted, THE SYSTEM SHALL store it* | *PASS* |
-| *Reject empty entry* | *IF text is missing, THEN THE SYSTEM SHALL reject with a reason* | *PASS* |
-| *Survive cleared cache* | *THE SYSTEM SHALL return stored entries on any device* | *PASS* |
-| *Network down* | *IF the server is unreachable, THE SYSTEM SHALL tell the user* | *CANNOT TEST YET* |
-| *Two clients, one table* | *...* | *DEFERRED (ADR-002)* |
+| Save an entry | WHEN a valid entry is submitted, THE SYSTEM SHALL store it | PASS |
+| Reject empty entry | IF text is missing, THEN THE SYSTEM SHALL reject with a reason | PASS |
+| Survive cleared cache | THE SYSTEM SHALL return stored entries on any device | PASS |
+| Network down | IF the server is unreachable, THE SYSTEM SHALL tell the user | CANNOT TEST YET |
+| Two clients, one table | WHEN two clients write, THE SYSTEM SHALL preserve both valid entries | DEFERRED (ADR-002) |
 
-*Full verification table lives in [FEATURES.md](context/FEATURES.md).*
+Full verification table lives in [FEATURES.md](context/FEATURES.md).
 
 ## Links
 

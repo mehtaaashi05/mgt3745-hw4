@@ -37,8 +37,10 @@ If this file and `CLAUDE.md` ever disagree, `STANDARDS.md` is normative — repa
 
 ## Naming
 
-*camelCase for JS, kebab-case for files, ...*
+Use camelCase for JavaScript identifiers, kebab-case for new filenames, and
+descriptive names for values that cross the browser/server boundary.
 
 ## Documentation
 
-*Inline comments explain why, never what. README stays current with each tag.*
+Inline comments explain why, never what. README stays current with each
+deployed change.

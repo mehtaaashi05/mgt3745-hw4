@@ -6,8 +6,8 @@ The living feature table and the verification record. Copy in from HW3 and exten
 
 | Feature | Kano | Status |
 |---|---|---|
-| *Save and list entries* | *Basic* | *Built (HW3), server-backed (HW4)* |
-| *...* | | |
+| Save and list entries | Basic | Built (HW3), server-backed (HW4) |
+| Reject invalid entries | Basic | Built (HW4) |
 
 ## Acceptance criteria (EARS)
 
@@ -25,12 +25,12 @@ Walk every statement against the deployed page. PASS, FAIL, CANNOT TEST YET, or 
 
 | Statement | HW3 verdict | HW4 verdict | Reason |
 |---|---|---|---|
-| Return entries in order | PASS | CANNOT TEST YET | The Worker query orders results by the database ID; verify against the deployed Worker after deployment. |
-| Store valid entry | PASS | CANNOT TEST YET | The POST endpoint uses D1 and returns 201; verify with a valid deployed request. |
-| Reject missing text | *?* | CANNOT TEST YET | The browser and Worker reject missing text with a visible reason; test the deployed 400 path. |
-| Survive cleared cache | CANNOT TEST YET | CANNOT TEST YET | Test after deployment by adding an entry, clearing site data or opening a private window, and reloading. |
+| Return entries in order | PASS | PASS | Deployed GET /entries returned entries ordered by their creation IDs. |
+| Store valid entry | PASS | PASS | Deployed POST /entries returned 201 and a follow-up GET returned the entry. |
+| Reject missing text | *?* | PASS | Deployed POST /entries with missing text returned 400 and `text required`; the page shows the response. |
+| Survive cleared cache | CANNOT TEST YET | PASS | The entry remained available from the deployed API after browser site data was cleared and the page was reloaded. |
 | Server unreachable | | CANNOT TEST YET | The page catches fetch failures and shows an error, but an outage still needs to be simulated. |
 | Server returns 500 | | CANNOT TEST YET | The page handles a non-success response, but the deployed 500 path still needs to be exercised. |
-| Server returns 400 for overlong text | | CANNOT TEST YET | The Worker rejects text over 200 characters; test the validation rule against the deployed endpoint. |
+| Server returns 400 for overlong text | | PASS | Deployed POST /entries with more than 200 characters returned 400 and named the 200-character limit. |
 | Second client writes to the same table | | DEFERRED | Shared storage is supported, but per-user identity and authorization are outside this HW4 scope; see ADR-002. |
 
