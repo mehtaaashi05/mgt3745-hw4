@@ -9,6 +9,9 @@ Status: ACTIVE in Module 3. Adapt these rules to your feature and follow them.
 3. Comment the directory's invariants when they could be accidentally broken, especially that storage succeeds before the interface changes; leave self-evident DOM operations uncommented.
 4. Begin each commit message with an action verb and name the user-visible result, using a form such as `Keep note text after a failed save` rather than a vague message like `Update files`.
 5. Do not turn note text into an HTML string: `innerHTML`, `outerHTML`, and `insertAdjacentHTML` are forbidden for note content; create elements and assign text through DOM APIs instead.
+7. 5. No credential in the repository. Not in code, not in config, not in a context file. Database ids are addresses and may appear in `wrangler.toml`.
+8. A failed request is shown to the user on the page and is never thrown in the console.
+9. No stray `console.log` in committed code.
 
 This document is the source of truth.
 
@@ -25,15 +28,7 @@ Prompt snippet:
 > When rendering user-entered note text, use DOM APIs and `textContent`; do not use `innerHTML`, `outerHTML`, or `insertAdjacentHTML` on note content.
 
 If this file and `CLAUDE.md` ever disagree, `STANDARDS.md` is normative — repair the inconsistent one rather than following each separately.
-## Rules
 
-1. *Your HW3 rules, five minimum.*
-2. Separation of concerns: HTML for structure, CSS for presentation, JS for behavior and data.
-3. User input reaches the page through `textContent`, never `innerHTML`.
-4. **(HW4)** User values reach SQL through `bind()`, never string concatenation.
-5. **(HW4)** No credential in the repository. Not in code, not in config, not in a context file. Database ids are addresses and may appear in `wrangler.toml`.
-6. **(HW4)** A failed request is shown to the user on the page and is never thrown in the console.
-7. No stray `console.log` in committed code.
 
 ## Naming
 
