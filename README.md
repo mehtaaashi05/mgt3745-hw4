@@ -16,11 +16,12 @@ the deployed Worker so they survive cleared browser data and are available to
 another client, as recorded in ADR-002.
 
 ## See It Work
-
 The deployed endpoint returned the same entry after the browser's site data
 was cleared and the page was loaded again.
 
-![See it work](docs/see-it-work.gif)
+Entry in Incognito Mode:
+
+![See it work](docs/See%20it%20Work.png)
 
 ```mermaid
 flowchart LR
@@ -69,7 +70,24 @@ Reading order for a stranger: [PROJECT.md](context/PROJECT.md) →
 
 ## AI Use
 
-*Three proto-DDR questions. What did the agent write? What did you check,
-and how? What could you not fully verify, and what did you do about it?
-For the Worker specifically: name the thing you could not fully inspect.
-Hours spent: ___.*
+### Tool and task delegated
+
+I used GitHub Copilot to help wire the static page to the Cloudflare Worker and document the deployment and
+verification evidence.
+
+### Why it was delegated
+
+The task involved repetitive API wiring and comparing several project files
+against the HW4 checklist. Delegating that first pass made it easier to keep
+the fetch boundary, error paths, and documentation consistent while I remained
+responsible for reviewing the result.
+
+### How it was checked
+
+I checked the JavaScript with syntax checks, exercised Worker routes with a D1
+stub, deployed the Worker, and tested the Live Server page. I also checked the
+SQL statements use parameter binding and reviewed the CORS, D1, validation, and
+error-handling configuration. A real network outage and the deployed 500 path
+were not fully verified, so they remain marked CANNOT TEST YET.
+
+Hours spent: _7.5_.
