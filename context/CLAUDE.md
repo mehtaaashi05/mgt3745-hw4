@@ -18,6 +18,10 @@ Do not read /curiosity unless asked.
 - Comment the directory's invariants when they could be accidentally broken. Leave self-evident DOM operations uncommented.
 - Begin each commit message with an action verb and name the user-visible result (for example, "keep note text after a failed save."), never a vague message like "update files."
 - When rendering user-entered note text, use DOM APIs and `textContent`. Do not use `innerHTML`, `outerHTML`, or `insertAdjacentHTML` on note content.
+- Never build SQL by concatenating strings. Use prepare(...).bind(...).
+- Never write a credential, token, or key into any file in this repository.
+- Never add a dependency without adding a row to TOOLS.md.
+- Handle failed responses on the page. Never throw to the console.
 
 ## When unsure
 
