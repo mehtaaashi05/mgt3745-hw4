@@ -1,7 +1,6 @@
 // app.js
 // The page talks to the Worker instead of keeping entries in localStorage.
 
-// Replace this with the deployed Worker URL before testing the hosted page.
 const API = "https://mgt3745-hw4.mgt3745-hw4.workers.dev";
 
 const form = document.getElementById("note-form");
@@ -60,6 +59,19 @@ function renderEntries(notes) {
     text.textContent = note.text;
     const when = document.createElement("time");
     when.textContent = note.created_at || "";
+    const request = document.createElement("button");
+    request.type = "button";
+    request.textContent = "Request a conversation";
+    request.setAttribute("aria-label", "Request a conversation with " + note.text);
+    const requestConfirmation = document.createElement("span");
+    requestConfirmation.setAttribute("role", "status");
+    requestConfirmation.hidden = true;
+    request.addEventListener("click", () => {
+      request.disabled = true;
+      requestConfirmation.textContent =
+        "Conversation request sent. This is informational and non-committal.";
+      requestConfirmation.hidden = false;
+    });
     const remove = document.createElement("button");
     remove.type = "button";
     remove.textContent = "Remove";
@@ -76,7 +88,7 @@ function renderEntries(notes) {
         showError(err.message || "Could not remove the entry.");
       }
     });
-    item.append(text, when, remove);
+    item.append(text, when, request, requestConfirmation, remove);
     list.append(item);
   }
 }
@@ -93,8 +105,8 @@ form.addEventListener("submit", async event => {
   event.preventDefault();
   clearMessages();
 
-  const text = input.value.trim();
-  if (text.length < 1 || text.length > 200) {
+  const candidate = input.value.trim();
+  if (candidate.length < 1 || candidate.length > 200) {
     showError("Enter a directory entry containing 1–200 characters.");
     input.setAttribute("aria-invalid", "true");
     input.focus();
@@ -103,7 +115,7 @@ form.addEventListener("submit", async event => {
 
   input.removeAttribute("aria-invalid");
   try {
-    await saveEntry({ text });
+    await saveEntry({ text: candidate });
     input.value = "";
     status.textContent = "Added to the directory.";
     await refresh();

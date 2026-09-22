@@ -4,18 +4,20 @@
 // The static page may be served from a different origin during local
 // development, so the API explicitly permits the browser requests it needs.
 const CORS = {
-  "access-control-allow-origin": "*",
+  "access-control-allow-origin": "http://127.0.0.1:5500",
   "access-control-allow-methods": "GET, POST, DELETE, OPTIONS",
   "access-control-allow-headers": "content-type",
 };
 
 export default {
   async fetch(request, env) {
+    // Anything that throws below becomes a readable 500 instead of a bare
+    // "Error 1101: Worker threw exception". The message names the cause,
+    // which is what your verification table needs.
     try {
       return await handle(request, env);
-    } catch {
-      // A failed database operation becomes a readable response for the page.
-      return new Response("server error", { status: 500, headers: CORS });
+    } catch (err) {
+      return new Response("server error: " + err.message, { status: 500, headers: CORS });
     }
   },
 };
@@ -32,10 +34,10 @@ async function handle(request, env) {
   }
 
   if (!env.DB) {
-    return new Response("server error: database is not configured", {
-      status: 500,
-      headers: CORS,
-    });
+    return new Response(
+      "server error: no D1 binding. Check database_id in wrangler.toml and redeploy.",
+      { status: 500, headers: CORS }
+    );
   }
 
   if (request.method === "GET" && url.pathname === "/entries") {
